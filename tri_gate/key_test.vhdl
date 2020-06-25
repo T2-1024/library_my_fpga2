@@ -1,0 +1,25 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+ENTITY key_test IS
+PORT(clk,key:IN STD_LOGIC ;	
+		en:OUT STD_LOGIC);
+END;
+ARCHITECTURE tests OF key_test IS
+BEGIN 
+	PROCESS(clk,key)
+	VARIABLE count: INTEGER RANGE 0 TO 1000000;
+	BEGIN
+	IF clk'EVENT AND clk='1'THEN
+		IF key='1' THEN 
+			IF count=500000 THEN  count:=count;
+			ELSE count:=count+1;
+			END IF;
+			IF count=499999 THEN en<='1';
+			ELSE en<='0';
+			END IF;
+		ELSE count:=0;
+		END IF;
+	END IF;
+	END PROCESS;
+END;
